@@ -1,0 +1,2 @@
+-- DUMP de SQL responsável pela criação do Banco de Dados, assim como o Schema
+-- Notei algumas diferenças em relação ao MySQL, e o dump original precisará ser adaptado
