@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    expose:
+      - 5432
+    ports:
+      - 8432:5432
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgresadmin
+      - POSTGRES_PASSWORD=postgresadmin
