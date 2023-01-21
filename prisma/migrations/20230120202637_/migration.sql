@@ -21,7 +21,7 @@ CREATE TABLE "Endereco" (
     "cidade" VARCHAR(45) NOT NULL,
     "estado" VARCHAR(45) NOT NULL,
     "cep" VARCHAR(8) NOT NULL,
-    "complemento" VARCHAR(280) NOT NULL,
+    "complemento" VARCHAR(280),
     "uuid_pessoa" TEXT NOT NULL,
     "municipiosId_municipio" INTEGER,
 
@@ -33,7 +33,6 @@ CREATE TABLE "Municipios" (
     "id_municipio" SERIAL NOT NULL,
     "nome" VARCHAR(45) NOT NULL,
     "id_uf" SMALLINT NOT NULL,
-    "ufsId_uf" INTEGER,
 
     CONSTRAINT "Municipios_pkey" PRIMARY KEY ("id_municipio")
 );
@@ -88,23 +87,6 @@ CREATE TABLE "Descartes" (
     CONSTRAINT "Descartes_pkey" PRIMARY KEY ("uuid_descarte")
 );
 
--- CreateTable
-CREATE TABLE "Pessoa_reside_Endereco" (
-    "uuid_pessoa" TEXT NOT NULL,
-    "uuid_endereco" TEXT NOT NULL,
-
-    CONSTRAINT "Pessoa_reside_Endereco_pkey" PRIMARY KEY ("uuid_pessoa","uuid_endereco")
-);
-
--- CreateTable
-CREATE TABLE "Funcionario_executa_Descarte" (
-    "uuid_veiculo" TEXT NOT NULL,
-    "uuid_descarte" TEXT NOT NULL,
-    "uuid_funcionario" TEXT NOT NULL,
-
-    CONSTRAINT "Funcionario_executa_Descarte_pkey" PRIMARY KEY ("uuid_veiculo","uuid_descarte","uuid_funcionario")
-);
-
 -- CreateIndex
 CREATE UNIQUE INDEX "Pessoa_cpf_key" ON "Pessoa"("cpf");
 
@@ -118,22 +100,7 @@ ALTER TABLE "Endereco" ADD CONSTRAINT "Endereco_uuid_pessoa_fkey" FOREIGN KEY ("
 ALTER TABLE "Endereco" ADD CONSTRAINT "Endereco_municipiosId_municipio_fkey" FOREIGN KEY ("municipiosId_municipio") REFERENCES "Municipios"("id_municipio") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Municipios" ADD CONSTRAINT "Municipios_ufsId_uf_fkey" FOREIGN KEY ("ufsId_uf") REFERENCES "Ufs"("id_uf") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Municipios" ADD CONSTRAINT "Municipios_id_uf_fkey" FOREIGN KEY ("id_uf") REFERENCES "Ufs"("id_uf") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Produtos" ADD CONSTRAINT "Produtos_id_categoria_fkey" FOREIGN KEY ("id_categoria") REFERENCES "Categorias"("id_categoria") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Pessoa_reside_Endereco" ADD CONSTRAINT "Pessoa_reside_Endereco_uuid_pessoa_fkey" FOREIGN KEY ("uuid_pessoa") REFERENCES "Pessoa"("uuid_pessoa") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Pessoa_reside_Endereco" ADD CONSTRAINT "Pessoa_reside_Endereco_uuid_endereco_fkey" FOREIGN KEY ("uuid_endereco") REFERENCES "Endereco"("uuid_endereco") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Funcionario_executa_Descarte" ADD CONSTRAINT "Funcionario_executa_Descarte_uuid_veiculo_fkey" FOREIGN KEY ("uuid_veiculo") REFERENCES "Veiculos"("uuid_veiculo") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Funcionario_executa_Descarte" ADD CONSTRAINT "Funcionario_executa_Descarte_uuid_descarte_fkey" FOREIGN KEY ("uuid_descarte") REFERENCES "Descartes"("uuid_descarte") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Funcionario_executa_Descarte" ADD CONSTRAINT "Funcionario_executa_Descarte_uuid_funcionario_fkey" FOREIGN KEY ("uuid_funcionario") REFERENCES "Pessoa"("uuid_pessoa") ON DELETE RESTRICT ON UPDATE CASCADE;

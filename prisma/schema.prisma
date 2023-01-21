@@ -46,8 +46,7 @@ model Municipios {
   nome         String     @db.VarChar(45)
   id_uf        Int        @db.SmallInt
   Endereco     Endereco[]
-  Ufs          Ufs?       @relation(fields: [ufsId_uf], references: [id_uf])
-  ufsId_uf     Int?
+  Ufs          Ufs?       @relation(fields: [id_uf], references: [id_uf])
 }
 
 model Ufs {
