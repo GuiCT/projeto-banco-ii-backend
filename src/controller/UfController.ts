@@ -13,10 +13,6 @@ export default class UfController {
       // res.status(201).json(newUf);
     } catch (e) {
       console.log('Failed to create uf', e);
-      res.status(500).json({
-        error: 'USR-01',
-        message: 'Failed to create uf'
-      });
     }
   }
 
@@ -29,10 +25,6 @@ export default class UfController {
 
     } catch (e) {
       console.log('Failed to get all ufs', e);
-      res.status(500).json({
-        error: 'USR-03',
-        message: 'Failed to get all ufs'
-      });
     }
   }
 };

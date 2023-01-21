@@ -30,8 +30,6 @@ model Endereco {
   rua                    String                   @db.VarChar(45)
   numero                 String                   @db.VarChar(45)
   bairro                 String                   @db.VarChar(45)
-  cidade                 String                   @db.VarChar(45)
-  estado                 String                   @db.VarChar(45)
   cep                    String                   @db.VarChar(8)
   complemento            String?                   @db.VarChar(280)
   uuid_pessoa            String

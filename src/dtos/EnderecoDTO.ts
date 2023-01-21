@@ -4,8 +4,6 @@ export interface EnderecoIn {
     complemento: string;
     bairro: string;
     cep: string;
-    cidade: string;
-    estado: string;
     uuid_pessoa: string;
     municipiosId_municipio: number;
 }
@@ -17,6 +15,4 @@ export interface EnderecoOut {
     complemento: string;
     bairro: string;
     cep: string;
-    cidade: string;
-    estado: string;
 }

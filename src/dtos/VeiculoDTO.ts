@@ -5,6 +5,7 @@ export interface VeiculoIn {
 }
 
 export interface VeiculoOut {
+    uuid_veiculo: string;
     placa: string;
     tipo: string;
     capacidade: number;

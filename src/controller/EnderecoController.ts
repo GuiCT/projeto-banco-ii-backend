@@ -13,10 +13,6 @@ export default class EnderecoController {
       // res.status(201).json(newEndereco);
     } catch (e) {
       console.log('Failed to create endereco', e);
-      res.status(500).json({
-        error: 'USR-01',
-        message: 'Failed to create endereco'
-      });
     }
   }
 
@@ -29,10 +25,6 @@ export default class EnderecoController {
 
     } catch (e) {
       console.log('Failed to get all enderecos', e);
-      res.status(500).json({
-        error: 'USR-03',
-        message: 'Failed to get all enderecos'
-      });
     }
   }
 };

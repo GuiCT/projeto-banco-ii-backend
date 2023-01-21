@@ -13,10 +13,6 @@ export default class MunicipioController {
       // res.status(201).json(newMunicipio);
     } catch (e) {
       console.log('Failed to create municipio', e);
-      res.status(500).json({
-        error: 'USR-01',
-        message: 'Failed to create municipio'
-      });
     }
   }
 
@@ -29,10 +25,6 @@ export default class MunicipioController {
 
     } catch (e) {
       console.log('Failed to get all municipios', e);
-      res.status(500).json({
-        error: 'USR-03',
-        message: 'Failed to get all municipios'
-      });
     }
   }
 };

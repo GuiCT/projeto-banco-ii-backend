@@ -12,10 +12,6 @@ export default class CategoriaController {
       const newCategoria: CategoriaOut = await categoriaModel.create(res, categoria);
     } catch (e) {
       console.log('Failed to create categoria', e);
-    //   res.status(500).json({
-    //     error: 'USR-01',
-    //     message: 'Failed to create categoria'
-    //   });
     }
   }
 
@@ -26,10 +22,6 @@ export default class CategoriaController {
 
     } catch (e) {
       console.log('Failed to get all categorias', e);
-      res.status(500).json({
-        error: 'USR-03',
-        message: 'Failed to get all categorias'
-      });
     }
   }
 };
