@@ -4,6 +4,10 @@ import ufRoute from './routes/UfRoute';
 import municipiosRoute from './routes/MunicipioRoute';
 import enderecosRoute from './routes/EnderecoRoute';
 import categoriasRoute from './routes/CategoriaRoute';
+import produtosRoute from './routes/ProdutoRoute';
+import veiculosRoute from './routes/VeiculoRoute';
+import pessoaRoute from './routes/PessoaRoute';
+import descarteRoute from './routes/DescarteRoute';
 
 dotenv.config();
 const app = express();
@@ -24,6 +28,9 @@ app.use("/ufs", ufRoute);
 app.use("/municipios", municipiosRoute);
 app.use("/enderecos", enderecosRoute);
 app.use("/categorias", categoriasRoute);
-
+app.use("/produtos", produtosRoute);
+app.use("/veiculos", veiculosRoute);
+app.use("/pessoas", pessoaRoute);
+app.use("/descartes", descarteRoute);
 
 app.listen(process.env.PORT || 3344);
