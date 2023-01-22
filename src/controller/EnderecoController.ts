@@ -16,6 +16,17 @@ export default class EnderecoController {
     }
   }
 
+  get = async (req: Request, res: Response) => {
+    try {
+      const id: string = req.params.uuid_endereco;
+      // @ts-ignore
+      const newEndereco: EnderecoOut | null = await enderecoModel.get(res, id);
+
+    } catch (e) {
+      console.log('Failed to get Endereco', e);
+    }
+  }
+
   getAll = async (req: Request, res: Response) => {
     try {
       // receives a list of objects EnderecoOut from EnderecoModel

@@ -15,4 +15,5 @@ export interface EnderecoOut {
     complemento: string;
     bairro: string;
     cep: string;
+    municipiosId_municipio: number;
 }

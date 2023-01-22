@@ -16,6 +16,17 @@ export default class UfController {
     }
   }
 
+  get = async (req: Request, res: Response) => {
+    try {
+      const id: number = parseInt(req.params.id_uf);
+      // @ts-ignore
+      const newUf: UfOut | null = await ufModel.get(res, id);
+
+    } catch (e) {
+      console.log('Failed to get Uf', e);
+    }
+  }
+
   getAll = async (req: Request, res: Response) => {
     try {
       // receives a list of objects UfOut from UfModel

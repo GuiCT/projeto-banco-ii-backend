@@ -6,6 +6,7 @@ const ufController = new UfController();
 
 routes.post('/', ufController.create);
 routes.get('/', ufController.getAll);
+routes.get('/:id_uf', ufController.get);
 
 
 export default routes;

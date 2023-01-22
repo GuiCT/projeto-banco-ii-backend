@@ -16,6 +16,17 @@ export default class MunicipioController {
     }
   }
 
+  get = async (req: Request, res: Response) => {
+    try {
+      const id: number = parseInt(req.params.id_municipio);
+      // @ts-ignore
+      const newMunicipio: MunicipioOut | null = await municipioModel.get(res, id);
+
+    } catch (e) {
+      console.log('Failed to get Municipio', e);
+    }
+  }
+
   getAll = async (req: Request, res: Response) => {
     try {
       // receives a list of objects MunicipioOut from MunicipioModel  
