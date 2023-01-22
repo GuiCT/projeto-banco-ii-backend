@@ -9,6 +9,7 @@ export interface PessoaIn {
 }
 
 export interface PessoaOut {
+    uuid: string;
     nome: string;
     sobrenome: string;
     email: string;

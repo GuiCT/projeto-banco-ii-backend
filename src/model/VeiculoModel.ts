@@ -13,7 +13,7 @@ export default class VeiculoModel {
 
   getAll = async (resOrigin: any) => {
     var saida: VeiculoOut[] | null;
-    client.query('SELECT uuid_veiculo, placa, tipo, capacidade FROM "Veiculos"', (err:any, res:any) => {
+    client.query('SELECT uuid_veiculo as uuid, placa, tipo, capacidade FROM "Veiculos"', (err:any, res:any) => {
       // returns a list of objects VeiculoOut
         if (err) resOrigin.status(500).json(err.message);
         else

@@ -14,7 +14,7 @@ export default class PessoaModel {
 
   getAll = async (resOrigin: any) => {
     var saida: PessoaOut[] | null;
-    client.query('SELECT nome, sobrenome, email, cpf, senha, is_funcionario, is_admin FROM "Pessoa"', (err:any, res:any) => {
+    client.query('SELECT uuid_pessoa as uuid, nome, sobrenome, email, cpf, senha, is_funcionario, is_admin FROM "Pessoa"', (err:any, res:any) => {
       // returns a list of objects PessoaOut
       if (err) resOrigin.status(500).json(err.message);
       else
