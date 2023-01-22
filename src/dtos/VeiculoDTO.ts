@@ -10,3 +10,10 @@ export interface VeiculoOut {
     tipo: string;
     capacidade: number;
 }
+
+export interface VeiculoPut {
+    uuid_veiculo: string;
+    placa: string;
+    tipo: string;
+    capacidade: number;
+}

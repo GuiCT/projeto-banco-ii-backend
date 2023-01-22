@@ -24,4 +24,24 @@ export default class VeiculoController {
       console.log('Failed to get all veiculos', e);
     }
   }
+
+  update = async (req: Request, res: Response) => {
+    try {
+      const veiculo: VeiculoOut = req.body;
+      // @ts-ignore
+      const updatedVeiculo: VeiculoOut = await veiculoModel.update(res, veiculo);
+    } catch (e) {
+      console.log('Failed to update veiculo', e);
+    }
+  }
+
+  delete = async (req: Request, res: Response) => {
+    try {
+      const id: string = req.params.uuid_veiculo;
+      // @ts-ignore
+      const deletedVeiculo: VeiculoOut = await veiculoModel.delete(res, id);
+    } catch (e) {
+      console.log('Failed to delete veiculo', e);
+    }
+  }
 };

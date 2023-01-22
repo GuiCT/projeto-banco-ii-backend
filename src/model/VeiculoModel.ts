@@ -21,4 +21,18 @@ export default class VeiculoModel {
       resOrigin.status(200).json(saida);
     })
   }
+
+  update = async (resOrigin: any, veiculo: VeiculoOut) => {
+    client.query('UPDATE "Veiculos" SET placa = $1, tipo = $2, capacidade = $3 WHERE uuid_veiculo = $4', [veiculo.placa, veiculo.tipo, veiculo.capacidade, veiculo.uuid_veiculo], (err:any, res:any) => {
+      if(err) resOrigin.status(500).json(err.message);
+      else resOrigin.status(200).json("Veiculo atualizado com sucesso!");
+    })
+  }
+
+  delete = async (resOrigin: any, id: string) => {
+    client.query('DELETE FROM "Veiculos" WHERE uuid_veiculo = $1', [id], (err:any, res:any) => {
+      if(err) resOrigin.status(500).json(err.message);
+      else resOrigin.status(200).json("Veiculo deletado com sucesso!");
+    })
+  }
 };
