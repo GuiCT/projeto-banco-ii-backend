@@ -18,6 +18,13 @@ export default class MunicipioModel {
         })
   }
 
+  getByUf = async(resOrigin:any, id_uf: string) => {
+    client.query('SELECT * FROM "Municipios" WHERE id_uf = $1', [id_uf], (err:any, res:any) => {
+      if(err) resOrigin.status(500).json(err);
+      resOrigin.status(200).json(res.rows);
+    })
+  }
+  
   getAll = async (resOrigin: any) => {
     client.query('SELECT * FROM "Municipios"', (err:any, res:any) => {
           if(err) resOrigin.status(500).json(err);

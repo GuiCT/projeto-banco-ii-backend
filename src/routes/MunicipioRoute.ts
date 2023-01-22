@@ -7,6 +7,7 @@ const municipioController = new MunicipioController();
 routes.post('/', municipioController.create);
 routes.get('/', municipioController.getAll);
 routes.get('/:id_municipio', municipioController.get);
+routes.post('/uf', municipioController.getByUf);
 
 
 export default routes;

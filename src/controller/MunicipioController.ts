@@ -26,6 +26,16 @@ export default class MunicipioController {
       console.log('Failed to get Municipio', e);
     }
   }
+  
+  getByUf = async (req: Request, res: Response) => {
+    try {
+      const id_uf: string = req.body.id_uf;
+      // @ts-ignore
+      const newMunicipio: MunicipioOut | null = await municipioModel.getByUf(res, id_uf);
+    } catch (e) {
+      console.log('Failed to get Municipio', e);
+    }
+  }
 
   getAll = async (req: Request, res: Response) => {
     try {
