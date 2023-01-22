@@ -5,10 +5,10 @@ import client from '../database';
 export default class EnderecoModel {
 
   create = async (resOrigin: any, endereco: EnderecoIn) => {
-    client.query('INSERT INTO "Endereco" (uuid_endereco, rua, numero, complemento, bairro, cep, uuid_pessoa, "municipiosId_municipio") VALUES (gen_random_uuid(), $1, $2, $3, $4, $5, $6)', [endereco.rua, endereco.numero, endereco.complemento, endereco.bairro, endereco.cep, endereco.uuid_pessoa, endereco.municipiosId_municipio
+    client.query('INSERT INTO "Endereco" (uuid_endereco, rua, numero, complemento, bairro, cep, uuid_pessoa, "municipiosId_municipio") VALUES (gen_random_uuid(), $1, $2, $3, $4, $5, $6, $7) RETURNING uuid_endereco', [endereco.rua, endereco.numero, endereco.complemento, endereco.bairro, endereco.cep, endereco.uuid_pessoa, endereco.municipiosId_municipio
     ], (err:any, res:any) => {
-          if(err) resOrigin(500).json(err);
-          resOrigin.status(201).json("Endereço criado com sucesso!");
+          if(err) resOrigin.status(500).json(err.message);
+          else resOrigin.status(201).json(res.rows[0].uuid_endereco);
         })
     
   }
