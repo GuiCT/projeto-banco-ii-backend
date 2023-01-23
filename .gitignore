@@ -105,3 +105,5 @@ dist
 
 # ASDF Shim
 .tool-versions
+prisma/migrations/20230122220951_/migration.sql
+prisma/migrations/migration_lock.toml

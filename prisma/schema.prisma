@@ -1,0 +1,128 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Pessoa {
+  uuid_pessoa           String                         @id @default(uuid())
+  nome                  String                         @db.VarChar(45)
+  sobrenome             String                         @db.VarChar(45)
+  cpf                   String                         @unique @db.VarChar(11)
+  email                 String                         @unique @db.VarChar(320)
+  senha                 String                         @db.VarChar(40)
+  is_funcionario        Boolean                        @db.Boolean
+  is_admin              Boolean                        @db.Boolean
+  Endereco              Endereco[]
+  Descartes_solicitante Descartes[]
+  Descartes_executante  Funcionario_executa_Descarte[]
+  // Pessoa_reside_Endereco       Pessoa_reside_Endereco[]
+  // Funcionario_executa_Descarte Funcionario_executa_Descarte[]
+}
+
+model Endereco {
+  uuid_endereco          String      @id @default(uuid())
+  rua                    String      @db.VarChar(45)
+  numero                 String      @db.VarChar(45)
+  bairro                 String      @db.VarChar(45)
+  cep                    String      @db.VarChar(8)
+  complemento            String?     @db.VarChar(280)
+  uuid_pessoa            String
+  Pessoa                 Pessoa      @relation(fields: [uuid_pessoa], references: [uuid_pessoa])
+  Municipios             Municipios? @relation(fields: [municipiosId_municipio], references: [id_municipio])
+  municipiosId_municipio Int?
+  // Pessoa_reside_Endereco Pessoa_reside_Endereco[]
+}
+
+model Municipios {
+  id_municipio Int        @id @default(autoincrement())
+  nome         String     @db.VarChar(45)
+  id_uf        Int        @db.SmallInt
+  Endereco     Endereco[]
+  Ufs          Ufs?       @relation(fields: [id_uf], references: [id_uf])
+}
+
+model Ufs {
+  id_uf      Int          @id @default(autoincrement())
+  nome       String       @db.VarChar(60)
+  sigla      String       @db.Char(2)
+  Municipios Municipios[]
+}
+
+model Categorias {
+  id_categoria Int        @id @default(autoincrement()) @db.SmallInt
+  nome         String     @db.VarChar(45)
+  prioridade   Int        @db.SmallInt
+  Produtos     Produtos[]
+}
+
+model Produtos {
+  uuid_produto String               @id @default(uuid())
+  nome         String               @db.VarChar(45)
+  descricao    String               @db.VarChar(280)
+  massa        Float                @db.Real
+  id_categoria Int                  @db.SmallInt
+  categorias   Categorias           @relation(fields: [id_categoria], references: [id_categoria])
+  descartes    ProdutosNoDescarte[]
+}
+
+model Veiculos {
+  uuid_veiculo                 String                         @id @default(uuid())
+  placa                        String                         @db.VarChar(7)
+  tipo                         String                         @db.VarChar(45)
+  capacidade                   Int                            @db.Integer
+  descartes                    VeiculosNoDescarte[]
+  Funcionario_executa_Descarte Funcionario_executa_Descarte[]
+}
+
+model Descartes {
+  uuid_descarte                String                         @id @default(uuid())
+  solicitado_em                DateTime                       @default(now()) @db.Timestamp(0)
+  uuid_solicitante             String
+  uuid_executante              String
+  uuid_origem                  String
+  uuid_destino                 String?
+  produtos                     ProdutosNoDescarte[]
+  veiculos                     VeiculosNoDescarte[]
+  solicitante                  Pessoa                         @relation(fields: [uuid_solicitante], references: [uuid_pessoa])
+  Funcionario_executa_Descarte Funcionario_executa_Descarte[]
+}
+
+model ProdutosNoDescarte {
+  uuid_produto  String
+  uuid_descarte String
+  quantidade    Float
+  produto       Produtos  @relation(fields: [uuid_produto], references: [uuid_produto])
+  descarte      Descartes @relation(fields: [uuid_descarte], references: [uuid_descarte])
+
+  @@id([uuid_produto, uuid_descarte])
+}
+
+model VeiculosNoDescarte {
+  uuid_veiculo  String
+  uuid_descarte String
+  data_descarte DateTime  @default(now()) @db.Timestamp(0)
+  veiculo       Veiculos  @relation(fields: [uuid_veiculo], references: [uuid_veiculo])
+  descarte      Descartes @relation(fields: [uuid_descarte], references: [uuid_descarte])
+
+  @@id([uuid_veiculo, uuid_descarte])
+}
+
+model Funcionario_executa_Descarte {
+  uuid_funcionario String
+  uuid_descarte    String
+  uuid_veiculo     String
+  data_execucao    DateTime  @default(now()) @db.Timestamp(0)
+  funcionario      Pessoa    @relation(fields: [uuid_funcionario], references: [uuid_pessoa])
+  descarte         Descartes @relation(fields: [uuid_descarte], references: [uuid_descarte])
+  veiculo          Veiculos  @relation(fields: [uuid_veiculo], references: [uuid_veiculo])
+
+  @@id([uuid_funcionario, uuid_descarte, uuid_veiculo])
+}
