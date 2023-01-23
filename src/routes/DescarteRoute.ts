@@ -6,6 +6,7 @@ const descarteController = new DescarteController();
 
 routes.post('/', descarteController.create);
 routes.get('/', descarteController.getAll);
+routes.put('/', descarteController.put_endereco_destino);
 routes.post('/produtos', descarteController.insert_produtos);
 routes.post('/veiculos', descarteController.insert_veiculos);
 routes.post('/funcionario', descarteController.insert_funcionario);

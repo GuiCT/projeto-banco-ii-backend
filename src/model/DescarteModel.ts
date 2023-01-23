@@ -93,4 +93,12 @@ export default class DescarteModel {
     })
   }
 
+  putEnderecoDestino = async (resOrigin: any, uuid_descarte: string, uuid_destino: string) => {
+    client.query('UPDATE "Descartes" SET uuid_destino = $1 WHERE uuid_descarte = $2', [uuid_destino, uuid_descarte], (err:any, res:any) => {
+      if (err) resOrigin.status(500).json(err.message);
+      else
+      resOrigin.status(200).json(res.rows);
+    })
+  }
+
 };

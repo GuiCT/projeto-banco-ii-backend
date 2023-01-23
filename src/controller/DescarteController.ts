@@ -115,4 +115,15 @@ export default class DescarteController {
       console.log('Failed to get funcionario by descarte', e);
     }
   }
+
+  put_endereco_destino = async (req: Request, res: Response) => {
+    try {
+      const uuid_descarte = req.body.uuid_descarte;
+      const uuid_destino = req.body.uuid_destino;
+      // @ts-ignore
+      const saida: any = await descarteModel.putEnderecoDestino(res, uuid_descarte, uuid_destino);
+    } catch (e) {
+      console.log('Failed to put endereco destino', e);
+    }
+  }
 };
