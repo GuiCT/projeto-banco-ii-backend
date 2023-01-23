@@ -24,4 +24,15 @@ export default class ProdutoController {
       console.log('Failed to get all produtos', e);
     }
   }
+
+  get = async (req: Request, res: Response) => {
+    try {
+      const uuid_produto: string = req.params.uuid_produto;
+      // receives a list of objects ProdutoOut from ProdutoModel
+      // @ts-ignore
+      const produto: ProdutoOut = await produtoModel.get(res, uuid_produto);
+    } catch (e) {
+      console.log('Failed to get produto', e);
+    }
+  }
 };
