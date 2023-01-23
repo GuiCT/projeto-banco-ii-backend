@@ -15,6 +15,17 @@ export default class VeiculoController {
     }
   }
 
+  get = async (req: Request, res: Response) => {
+    try {
+      const id: string = req.params.uuid_veiculo;
+      // @ts-ignore
+      const veiculo: VeiculoOut = await veiculoModel.get(res, id);
+    } catch (e) {
+      console.log('Failed to get veiculo', e);
+    }
+  }
+  
+
   getAll = async (req: Request, res: Response) => {
     try {
       // receives a list of objects VeiculoOut from VeiculoModel
