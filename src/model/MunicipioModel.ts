@@ -5,9 +5,9 @@ import client from '../database';
 export default class MunicipioModel {
 
   create = async (resOrigin: any, municipio: MunicipioIn) => {
-    client.query('INSERT INTO "Municipios" (nome, id_uf) VALUES ($1, $2)', [municipio.nome, municipio.id_uf], (err:any, res:any) => {
+    client.query('INSERT INTO "Municipios" (nome, id_uf) VALUES ($1, $2) RETURNING id_municipio', [municipio.nome, municipio.id_uf], (err:any, res:any) => {
           if(err) resOrigin.status(500).json(err);
-          resOrigin.status(201).json("Municipio criado com sucesso!");
+          resOrigin.status(201).json(res.rows[0]);
         })
   }
 

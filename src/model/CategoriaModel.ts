@@ -3,9 +3,9 @@ import client from '../database';
 
 export default class CategoriaModel {
   create = async (resOrigin: any, categoria: CategoriaIn) => {
-    client.query('INSERT INTO "Categorias" (nome, prioridade) VALUES ($1, $2)', [categoria.nome, categoria.prioridade], (err:any, res:any) => {
+    client.query('INSERT INTO "Categorias" (nome, prioridade) VALUES ($1, $2) RETURNING id_categoria', [categoria.nome, categoria.prioridade], (err:any, res:any) => {
           if(err) resOrigin.status(500).json(err.stack);
-          else resOrigin.status(201).json("Categoria criado com sucesso!");
+          else resOrigin.status(201).json(res.rows[0]);
         })
   }
 

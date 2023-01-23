@@ -5,10 +5,10 @@ import client from '../database';
 export default class PessoaModel {
 
   create = async (resOrigin: any, pessoa: PessoaIn) => {
-    client.query('INSERT INTO "Pessoa" (uuid_pessoa, nome, sobrenome, email, cpf, senha, is_funcionario, is_admin) VALUES (gen_random_uuid(), $1, $2, $3, $4, $5, $6, $7)', [pessoa.nome, pessoa.sobrenome, pessoa.email, pessoa.cpf, pessoa.senha, pessoa.is_funcionario, pessoa.is_admin
+    client.query('INSERT INTO "Pessoa" (uuid_pessoa, nome, sobrenome, email, cpf, senha, is_funcionario, is_admin) VALUES (gen_random_uuid(), $1, $2, $3, $4, $5, $6, $7) RETURNING uuid_pessoa', [pessoa.nome, pessoa.sobrenome, pessoa.email, pessoa.cpf, pessoa.senha, pessoa.is_funcionario, pessoa.is_admin
     ], (err:any, res:any) => {
           if(err) resOrigin.status(500).json(err.message);
-          else resOrigin.status(201).json("Pessoa criado com sucesso!");
+          else resOrigin.status(201).json(res.rows[0]);
         })
   }
 

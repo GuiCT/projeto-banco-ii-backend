@@ -4,9 +4,9 @@ import client from '../database';
 export default class UfModel {
 
   create = async (resOrigin: any, uf: UfIn) => {
-    client.query('INSERT INTO "Ufs" (nome, sigla) VALUES ($1, $2)', [uf.nome, uf.sigla], (err:any, res:any) => {
+    client.query('INSERT INTO "Ufs" (nome, sigla) VALUES ($1, $2) RETURNING id_uf', [uf.nome, uf.sigla], (err:any, res:any) => {
         if(err) resOrigin.status(500).json(err);
-        resOrigin.status(201).json("UF criada com sucesso!");
+        else resOrigin.status(201).json(res.rows[0]);
       })
   }
 
