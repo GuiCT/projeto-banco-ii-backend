@@ -15,6 +15,37 @@ export default class DescarteController {
     }
   }
 
+  insert_produtos = async (req: Request, res: Response) => {
+    try {
+      const entrada: any = req.body;
+      // @ts-ignore
+      const saida: any = await descarteModel.insert_produtos(res, entrada);
+    } catch (e) {
+      console.log('Failed to insert produtos', e);
+    }
+  }
+
+  insert_veiculos = async (req: Request, res: Response) => {
+    try {
+      const entrada: any = req.body;
+      // @ts-ignore
+      const saida: any = await descarteModel.insert_veiculos(res, entrada);
+    } catch (e) {
+      console.log('Failed to insert veiculos', e);
+    }
+  }
+
+  insert_funcionario = async (req: Request, res: Response) => {
+    try {
+      const entrada: any = req.body;
+      // @ts-ignore
+      const saida: any = await descarteModel.insert_funcionario(res, entrada);
+    } catch (e) {
+      console.log('Failed to insert funcionario', e);
+    }
+  }
+
+
   getAll = async (req: Request, res: Response) => {
     try {
       // receives a list of objects DescarteOut from DescarteModel
@@ -22,6 +53,66 @@ export default class DescarteController {
       const descartes: DescarteOut[] = await descarteModel.getAll(res);
     } catch (e) {
       console.log('Failed to get all descartes', e);
+    }
+  }
+
+  get_produtos = async (req: Request, res: Response) => {
+    try {
+      const entrada: any = req.body;
+      // @ts-ignore
+      const saida: any = await descarteModel.getAllProdutos(res, entrada);
+    } catch (e) {
+      console.log('Failed to get produtos', e);
+    }
+  }
+
+  get_veiculos = async (req: Request, res: Response) => {
+    try {
+      const entrada: any = req.body;
+      // @ts-ignore
+      const saida: any = await descarteModel.getAllVeiculos(res, entrada);
+    } catch (e) {
+      console.log('Failed to get veiculos', e);
+    }
+  }
+
+  get_funcionario = async (req: Request, res: Response) => {
+    try {
+      const entrada: any = req.body;
+      // @ts-ignore
+      const saida: any = await descarteModel.getAllFuncionarios(res, entrada);
+    } catch (e) {
+      console.log('Failed to get funcionario', e);
+    }
+  }
+
+  get_produtos_by_descarte = async (req: Request, res: Response) => {
+    try {
+      const id: string = req.params.uuid_descarte;
+      // @ts-ignore
+      const saida: any = await descarteModel.getProdutosByDescarte(res, id);
+    } catch (e) {
+      console.log('Failed to get produtos by descarte', e);
+    }
+  }
+
+  get_veiculos_by_descarte = async (req: Request, res: Response) => {
+    try {
+      const id: string = req.params.uuid_descarte;
+      // @ts-ignore
+      const saida: any = await descarteModel.getVeiculosByDescarte(res, id);
+    } catch (e) {
+      console.log('Failed to get veiculos by descarte', e);
+    }
+  }
+
+  get_funcionario_by_descarte = async (req: Request, res: Response) => {
+    try {
+      const id: string = req.params.uuid_descarte;
+      // @ts-ignore
+      const saida: any = await descarteModel.getFuncionariosByDescarte(res, id);
+    } catch (e) {
+      console.log('Failed to get funcionario by descarte', e);
     }
   }
 };
